@@ -466,13 +466,25 @@ footer {
     font-weight: bold;
     transition: background-color 0.3s ease;
 }
-
-.download-btn:hover {
-    background-color: var(--nav-link-hover);
-}
-
 .section-heading {
     text-align: center;
+}
+
+.download-btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #61dafb; /* bright button */
+    color: #1a1a1a; /* dark readable text */
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.download-btn:hover {
+    background-color: #007bff;
+    color: #ffffff;
 }
 
 form {
@@ -481,6 +493,8 @@ form {
     flex-direction: column;
     gap: 15px;
     max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 form label {
