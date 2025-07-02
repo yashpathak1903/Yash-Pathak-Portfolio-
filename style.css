@@ -455,36 +455,39 @@ footer {
     flex-direction: row;
   }
 }
-.download-btn {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 10px 20px;
-    background-color: #61fb9463;
-    color: #2c3e50; /* High contrast dark text */
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-}
-.section-heading {
-    text-align: center;
-}
 
+/* Download Button */
 .download-btn {
     display: inline-block;
     margin-top: 15px;
     padding: 10px 20px;
-    background-color: #61dafb; /* bright button */
-    color: #1a1a1a; /* dark readable text */
+    background-color: var(--button-bg);
+    color: var(--button-color);
     text-decoration: none;
     border-radius: 5px;
     font-weight: bold;
-    transition: background-color 0.3s ease;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .download-btn:hover {
-    background-color: #007bff;
+    background-color: var(--nav-link-hover);
     color: #ffffff;
+}
+
+/* Make sure download-btn uses theme variables in both light and dark mode */
+body .download-btn {
+    background-color: var(--button-bg);
+    color: var(--button-color);
+}
+
+body.dark-mode .download-btn {
+    background-color: var(--button-bg);
+    color: var(--button-color);
+}
+
+.section-heading {
+    text-align: center;
 }
 
 form {
