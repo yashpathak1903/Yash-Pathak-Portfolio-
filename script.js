@@ -22,17 +22,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setTheme(getPreferredTheme());
 
-    themeToggle.addEventListener('click', () => {
-        setTheme(body.classList.contains('dark-mode') ? 'light' : 'dark');
-    });
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            setTheme(body.classList.contains('dark-mode') ? 'light' : 'dark');
+        });
+    }
 
     // Hamburger Menu Toggle
     const menuToggle = document.getElementById('menu-toggle');
     const navLinks = document.getElementById('nav-links');
 
-    menuToggle.addEventListener('click', () => {
-        navLinks.classList.toggle('expanded');
-    });
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('expanded');
+        });
+    }
 
     // Scroll-triggered animations
     const faders = document.querySelectorAll('.fade-in');
@@ -53,29 +57,30 @@ document.addEventListener('DOMContentLoaded', () => {
     faders.forEach(fader => {
         appearOnScroll.observe(fader);
     });
-});
-document.getElementById('contact-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const formStatus = document.getElementById('form-status');
-    formStatus.textContent = "Sending...";
 
-    const data = {
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        message: document.getElementById('message').value
-    };
+    // Google Sheets Contact Form Submission
+    const form = document.getElementById('contact-form');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formStatus = document.getElementById('form-status');
+            formStatus.textContent = "Sending...";
 
-    fetch('https://script.google.com/macros/s/AKfycbzdAa1D75wIh7EljTkPnO-7Ut3EIldN95hu_SSJGLzX0nS_X9Imy_7aS8sl8--Lg89u/exec', {
-        method: 'POST',
-        body: JSON.stringify(data)
-    })
-    .then(res => res.json())
-    .then(response => {
-        formStatus.textContent = "Message sent successfully!";
-        document.getElementById('contact-form').reset();
-    })
-    .catch(error => {
-        formStatus.textContent = "Error! Try again.";
-        console.error('Error!', error.message);
-    });
+            const formData = new FormData(form);
+
+            fetch('https://script.google.com/macros/s/AKfycbzdAa1D75wIh7EljTkPnO-7Ut3EIldN95hu_SSJGLzX0nS_X9Imy_7aS8sl8--Lg89u/exec', {
+                method: 'POST',
+                body: formData,
+                mode: 'no-cors'
+            })
+            .then(() => {
+                formStatus.textContent = "Message sent successfully!";
+                form.reset();
+            })
+            .catch(error => {
+                formStatus.textContent = "Error! Try again.";
+                console.error('Error!', error.message);
+            });
+        });
+    }
 });
